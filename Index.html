@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Banco de Dados · Unidade 1 — Resumo visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF7F7; --surface:#FFFFFF; --surface-2:#FCEBED; --ink:#2A1316; --muted:#6A5458; --line:#EAD2D5;
+  --brand:#C8102E; --accent:#C8102E; --soft:#F9D5DA; --tint:#FFF0F2;
+  --ok:#17794B; --ok-soft:#DCF3E6; --bad:#8A1022; --bad-soft:#FBE3E6;
+  --shadow:0 1px 2px rgba(60,10,20,.06),0 10px 26px -14px rgba(120,10,30,.35);
+  --head:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#190C0F; --surface:#261418; --surface-2:#341A20; --ink:#F8EBED; --muted:#CBB0B5; --line:#4D2C33;
+    --brand:#D92B45; --accent:#FF6B7E; --soft:#4B1D27; --tint:#2E171C;
+    --ok:#5ED19B; --ok-soft:#173A2A; --bad:#FF9AA8; --bad-soft:#4A1B24;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 26px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#190C0F; --surface:#261418; --surface-2:#341A20; --ink:#F8EBED; --muted:#CBB0B5; --line:#4D2C33;
+  --brand:#D92B45; --accent:#FF6B7E; --soft:#4B1D27; --tint:#2E171C;
+  --ok:#5ED19B; --ok-soft:#173A2A; --bad:#FF9AA8; --bad-soft:#4A1B24;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 26px -14px rgba(0,0,0,.7);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.7 var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--head);line-height:1.12;margin:0;letter-spacing:-.01em}
+p{margin:.75rem 0;max-width:68ch}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+b,strong{font-weight:700}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1080px;margin:0 auto;padding:.55rem 1rem;display:flex;align-items:center;gap:.9rem}
+.brand{font:800 1.05rem var(--head);text-decoration:none;color:var(--ink);white-space:nowrap}
+.brand span{color:var(--accent)}
+.bar nav{display:flex;gap:.3rem;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+.bar nav::-webkit-scrollbar{display:none}
+.bar nav a{padding:.3rem .75rem;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:600;font-size:.92rem;white-space:nowrap}
+.bar nav a:hover{background:var(--soft);color:var(--ink)}
+.bar nav a.on{background:var(--brand);color:#fff}
+.bar-r{display:flex;align-items:center;gap:.5rem}
+.score{font:700 .85rem var(--mono);background:var(--soft);color:var(--ink);padding:.25rem .6rem;border-radius:999px;white-space:nowrap}
+.icon{width:2.1rem;height:2.1rem;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:1.05rem;line-height:1}
+.prog{height:3px;background:var(--brand);transform-origin:left;transform:scaleX(0)}
+
+/* hero */
+.hero{background:var(--brand);color:#fff;padding:clamp(2.2rem,6vw,4.5rem) 1.25rem clamp(2.5rem,6vw,4.5rem)}
+.hero-in{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem;align-items:center}
+@media(max-width:860px){.hero-in{grid-template-columns:1fr}}
+.hero-top{margin:0 0 .8rem;font-weight:600;opacity:.9}
+.hero h1{font-weight:800;font-size:clamp(2.3rem,6.2vw,4.4rem);line-height:1.02;letter-spacing:-.025em}
+.hero .lead{font-size:1.2rem;max-width:34rem;margin:1.2rem 0 1.6rem;opacity:.95}
+.btn{display:inline-block;background:#fff;color:#8F0A21;font-weight:700;padding:.7rem 1.2rem;border-radius:999px;text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:#FFE9EC}
+.btn.red{background:var(--brand);color:#fff}
+.btn.red:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.bitcard{background:var(--surface);color:var(--ink);border-radius:22px;padding:1.3rem;box-shadow:0 20px 50px -20px rgba(60,0,10,.6)}
+.bc-title{margin:0 0 .9rem;font-weight:700;max-width:none}
+.byte{display:grid;grid-template-columns:repeat(8,1fr);gap:.4rem}
+.bit{height:3.4rem;border-radius:10px;border:2px solid var(--line);background:var(--surface);font:700 1.4rem var(--mono);color:var(--muted);cursor:pointer;padding:0;transition:background .15s,color .15s,transform .1s}
+.bit:active{transform:scale(.94)}
+.bit[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.bc-out{display:flex;gap:1.1rem;align-items:center;margin:1.1rem 0 .8rem}
+.bc-char{width:5.2rem;height:5.2rem;border-radius:16px;background:var(--tint);border:2px dashed var(--accent);display:grid;place-items:center;font:800 3rem var(--head);color:var(--accent)}
+.bc-out dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.1rem .8rem;font-size:.95rem}
+.bc-out dt{color:var(--muted)} .bc-out dd{margin:0;font:700 1rem var(--mono)}
+.bc-q{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;font-size:.92rem;color:var(--muted)}
+.bc-q button{border:1.5px solid var(--accent);background:transparent;color:var(--accent);font-weight:700;border-radius:8px;padding:.15rem .7rem;cursor:pointer}
+
+/* layout */
+.wrap{max-width:960px;margin:0 auto;padding:0 1.25rem}
+.sec-title{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:.5rem}
+.intro{padding-top:3rem}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:1rem 0 2rem}
+.skill{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--brand);border-radius:10px;padding:.8rem 1rem;font-size:.97rem;line-height:1.45}
+.map{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.6rem;align-items:stretch}
+.map a{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:1rem;text-decoration:none;color:var(--ink);display:block;transition:border-color .15s,transform .15s}
+.map a:hover{border-color:var(--accent);transform:translateY(-2px)}
+.map a b{display:block;font:800 1.15rem var(--head)}
+.map a span{font-size:.92rem;color:var(--muted);line-height:1.4;display:block;margin-top:.3rem}
+.map i{align-self:center;color:var(--accent);font-style:normal;font-size:1.6rem}
+@media(max-width:700px){.map{grid-template-columns:1fr}.map i{transform:rotate(90deg);justify-self:center}}
+
+.topic{padding-top:2.5rem}
+.page{display:none}.page.on{display:block}
+.pager{display:flex;justify-content:space-between;gap:1rem;margin:3.5rem 0 1rem;padding-top:1.5rem;border-top:2px solid var(--line)}
+.pager a{display:block;padding:.8rem 1.2rem;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font-weight:700;max-width:48%}
+.pager a:hover{border-color:var(--accent)}
+.pager a.nx{background:var(--brand);border-color:var(--brand);color:#fff;margin-left:auto;text-align:right}
+.pager small{display:block;font-weight:500;opacity:.8}
+.hero-in{padding-bottom:0}
+.topic-head{display:flex;gap:1.1rem;align-items:center;margin-bottom:1.2rem}
+.tnum{flex:none;width:4.2rem;height:4.2rem;border-radius:18px;background:var(--brand);color:#fff;font:800 2.5rem/4.2rem var(--head);text-align:center}
+.topic-head h2{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800}
+.topic-head p{margin:.3rem 0 0;color:var(--muted)}
+h3{font-size:1.45rem;margin:2.6rem 0 .4rem;font-weight:800}
+h3::before{content:"";display:inline-block;width:.7rem;height:.7rem;border-radius:3px;background:var(--brand);margin-right:.6rem;vertical-align:.08em}
+h4{font-size:1.1rem;margin:1.4rem 0 .2rem}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.2rem;box-shadow:var(--shadow);margin:1.1rem 0}
+.note{background:var(--tint);border-left:5px solid var(--brand);border-radius:0 12px 12px 0;padding:.8rem 1.1rem;margin:1.1rem 0;max-width:68ch}
+.note p{margin:.3rem 0}
+.example{background:var(--surface);border:1.5px dashed var(--accent);border-radius:12px;padding:.8rem 1.1rem;margin:1.1rem 0;max-width:68ch}
+.example p{margin:.3rem 0}
+.small{font-size:.9rem;color:var(--muted)}
+.chip{display:inline-block;background:var(--soft);color:var(--ink);border-radius:999px;padding:.15rem .7rem;font-weight:600;font-size:.9rem;margin:.15rem .1rem}
+.mono{font-family:var(--mono)}
+.sv{width:100%;height:auto;display:block}
+.sv-box{fill:var(--surface);stroke:var(--accent);stroke-width:2}
+.sv-fill{fill:var(--brand);stroke:var(--brand);stroke-width:2}
+.sv-tx{fill:var(--ink);font:600 15px var(--body)}
+.sv-sm{fill:var(--ink);font:500 13px var(--body)}
+.sv-mu{fill:var(--muted);font:500 12.5px var(--body)}
+.sv-w{fill:#fff;font:700 15px var(--body)}
+.sv-line{stroke:var(--accent);stroke-width:2;fill:none}
+.sv-thin{stroke:var(--muted);stroke-width:1.4;fill:none}
+.sv-dot{fill:var(--surface);stroke:var(--accent);stroke-width:2.5}
+.sv-dotf{fill:var(--accent);stroke:var(--accent);stroke-width:2.5}
+
+/* tabs */
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.tab{padding:.45rem .95rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-weight:600;font-size:.95rem;cursor:pointer;color:var(--ink)}
+.tab:hover{border-color:var(--accent)}
+.tab[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+
+/* ladder */
+.ladder{display:grid;grid-template-columns:minmax(220px,.8fr) 1.2fr;gap:1.2rem;align-items:start}
+@media(max-width:760px){.ladder{grid-template-columns:1fr}}
+.steps{display:flex;flex-direction:column;gap:.45rem}
+.step{text-align:left;padding:.65rem .9rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
+.step:nth-child(2){margin-left:.8rem}.step:nth-child(3){margin-left:1.6rem}.step:nth-child(4){margin-left:2.4rem}.step:nth-child(5){margin-left:3.2rem}
+.step[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:var(--brand)}
+.lad-info{margin-top:.8rem;padding:.8rem 1rem;background:var(--tint);border-radius:12px;font-size:.97rem}
+.lad-info p{margin:.25rem 0}
+.db{display:grid;gap:.8rem}
+.tblwrap{border:2px solid var(--line);border-radius:12px;padding:.5rem;background:var(--surface);transition:all .2s}
+.tname{font:800 .95rem var(--head);margin:.1rem .3rem .4rem}
+.tblwrap table{width:100%;border-collapse:collapse;font-size:.92rem}
+.tblwrap th{text-align:left;background:var(--surface-2);padding:.35rem .5rem;font-weight:700}
+.tblwrap td{padding:.35rem .5rem;border-top:1px solid var(--line)}
+.t-dep{opacity:.45}
+.ch{font-family:var(--mono)}
+[data-level="char"] .ch{background:var(--brand);color:#fff;border-radius:4px;padding:0 .2rem}
+[data-level="campo"] .c1{background:var(--brand);color:#fff;border-radius:4px}
+[data-level="registro"] .r1 td{background:var(--soft);font-weight:600}
+[data-level="arquivo"] .t-func{border-color:var(--brand);box-shadow:0 0 0 4px var(--soft)}
+[data-level="bd"] .t-func,[data-level="bd"] .t-dep{opacity:1;border-color:var(--brand)}
+[data-level="bd"].db{outline:3px dashed var(--accent);outline-offset:6px;border-radius:6px}
+
+/* converter */
+.conv-in{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.conv-in input{font:600 1.2rem var(--mono);padding:.55rem .8rem;border:2px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);width:min(16rem,100%)}
+.conv-out{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem}
+.cc{background:var(--tint);border:1.5px solid var(--soft);border-radius:12px;padding:.5rem .7rem;text-align:center;min-width:6.2rem}
+.cc big{display:block;font:800 1.7rem var(--head);color:var(--accent)}
+.cc code{display:block;font:600 .88rem var(--mono)}
+.cc small{color:var(--muted)}
+
+/* timeline */
+.tl-track{display:flex;gap:.5rem;overflow-x:auto;padding:.4rem .1rem .8rem;scrollbar-width:thin}
+.tl-n{flex:none;border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:.5rem .8rem;cursor:pointer;font-weight:700;font-size:.92rem;position:relative}
+.tl-n::after{content:"";position:absolute;left:100%;top:50%;width:.5rem;height:2px;background:var(--line)}
+.tl-n:last-child::after{display:none}
+.tl-n[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:var(--brand)}
+.tl-card h4{margin:0 0 .3rem;font-size:1.2rem}
+.tl-card p{margin:.4rem 0}
+.tl-card{animation:pop .25s ease}
+@keyframes pop{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* accordion */
+details.prob{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;margin:.55rem 0;overflow:hidden}
+details.prob summary{cursor:pointer;padding:.75rem 1rem;font-weight:700;list-style:none;display:flex;gap:.7rem;align-items:center}
+details.prob summary::-webkit-details-marker{display:none}
+details.prob summary::before{content:"+";flex:none;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--soft);color:var(--accent);display:grid;place-items:center;font-weight:800}
+details.prob[open] summary::before{content:"–";background:var(--brand);color:#fff}
+details.prob[open]{border-color:var(--accent)}
+.prob-b{padding:0 1rem 1rem 3.3rem;font-size:.97rem}
+.prob-b p{margin:.35rem 0}
+.prob-b .fix{background:var(--ok-soft);color:var(--ink);border-radius:8px;padding:.35rem .7rem}
+
+/* model cards */
+.tc{border:2px solid var(--accent);border-radius:10px;overflow:hidden;background:var(--surface);min-width:150px;flex:1 1 150px}
+.tc-h{background:var(--brand);color:#fff;font-weight:700;padding:.35rem .7rem}
+.tc-c{display:flex;justify-content:space-between;gap:.5rem;padding:.25rem .7rem;border-top:1px solid var(--line);font:500 .88rem var(--mono)}
+.tc-c b{font-size:.68rem;color:var(--accent);align-self:center}
+.tc-c.pk span{font-weight:800}.tc-c.fk span{font-style:italic}
+.tcs{display:flex;gap:.8rem;flex-wrap:wrap;align-items:flex-start}
+.lk{background:var(--soft)!important;outline:2px solid var(--accent);outline-offset:-2px}
+[data-k]{cursor:pointer}
+.classbox{border:2px solid var(--accent);border-radius:10px;max-width:260px;background:var(--surface);overflow:hidden}
+.classbox div{padding:.35rem .8rem;font:500 .9rem var(--mono);border-top:1px solid var(--line)}
+.classbox div:first-child{background:var(--brand);color:#fff;font:700 1rem var(--body);border:0}
+
+/* attr diagram */
+.chips{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.8rem}
+.attr-svg .at{transition:opacity .2s}
+.attr-svg[data-f="det"] .at:not([data-kind="det"]),
+.attr-svg[data-f="mono"] .at:not([data-kind="mono"]),
+.attr-svg[data-f="comp"] .at:not([data-kind="comp"]),
+.attr-svg[data-f="multi"] .at:not([data-kind="multi"]){opacity:.15}
+
+/* spec */
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface);margin:.2rem .4rem .6rem 0}
+.seg button{border:0;background:transparent;padding:.4rem .9rem;font-weight:600;font-size:.93rem;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--brand);color:#fff}
+.spec-q{font-weight:700;margin:.5rem 0 0}
+.items{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.5rem;margin:.8rem 0}
+.item{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:.5rem .7rem;font-weight:600}
+.tag{display:inline-block;margin:.2rem .25rem 0 0;padding:.05rem .6rem;border-radius:999px;background:var(--brand);color:#fff;font-size:.82rem;font-weight:700}
+.tag.none{background:transparent;color:var(--muted);border:1.5px dashed var(--muted)}
+.verdict{display:flex;gap:.6rem;flex-wrap:wrap}
+.verdict span{background:var(--tint);border:1px solid var(--soft);border-radius:8px;padding:.3rem .7rem;font-size:.92rem}
+
+/* rel */
+.rel-svg .nd rect{fill:var(--surface);stroke:var(--accent);stroke-width:2;transition:fill .15s}
+.rel-svg .nd text{fill:var(--ink);font:600 14px var(--body)}
+.rel-svg .nd{cursor:pointer}
+.rel-svg .nd:hover rect,.rel-svg .nd:focus rect{fill:var(--soft)}
+.rel-svg .ed{stroke:var(--accent);stroke-width:2;transition:opacity .15s,stroke-width .15s}
+.rel-svg.hov .ed.dim{opacity:.12}.rel-svg.hov .ed.hi{stroke-width:4}
+.read{display:grid;gap:.4rem;margin:.6rem 0}
+.read div{background:var(--tint);border-radius:8px;padding:.4rem .8rem;font-size:.95rem}
+
+/* phases */
+.ph-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}
+@media(max-width:640px){.ph-row{grid-template-columns:1fr 1fr}}
+.ph{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:.6rem .5rem;cursor:pointer;text-align:center;font-weight:700;position:relative}
+.ph small{display:block;font-weight:500;color:var(--muted);font-size:.8rem}
+.ph[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:var(--brand)}
+.ph[aria-pressed="true"] small{color:#fff;opacity:.9}
+.meter{height:.7rem;border-radius:99px;background:var(--surface-2);margin:.9rem 0 .2rem;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--brand);border-radius:99px;transition:width .35s}
+.ph-body{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.8rem}
+@media(max-width:640px){.ph-body{grid-template-columns:1fr}}
+.ph-body div{background:var(--tint);border-radius:12px;padding:.7rem .9rem;font-size:.96rem}
+.ph-body h5{margin:0 0 .2rem;font:800 .98rem var(--head)}
+.ph-body ul{margin:.2rem 0 0;padding-left:1.1rem}
+
+/* example */
+.mark-e{background:transparent}
+.show-e .e{background:var(--brand);color:#fff;border-radius:4px;padding:0 .25rem}
+.show-a .a{background:var(--soft);border-bottom:2px solid var(--accent);border-radius:3px}
+.show-r .r{text-decoration:underline wavy var(--accent);text-underline-offset:4px;font-weight:600}
+.dtbl{border-collapse:collapse;font-size:.9rem;width:100%}
+.dtbl th{background:var(--brand);color:#fff;text-align:left;padding:.3rem .5rem}
+.dtbl td{border-top:1px solid var(--line);padding:.3rem .5rem}
+.dtbl caption{text-align:left;font:800 .98rem var(--head);padding:.3rem 0}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.total{margin-top:.8rem;background:var(--tint);border-radius:10px;padding:.6rem .9rem;font-size:.95rem}
+
+/* exercises */
+.ex{margin-top:2.6rem;background:var(--tint);border:1.5px solid var(--soft);border-radius:22px;padding:1.2rem 1.2rem 1.4rem}
+.ex-h{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.ex-h h3{margin:0}.ex-h h3::before{display:none}
+.tscore{font:700 .9rem var(--mono);background:var(--brand);color:#fff;padding:.2rem .7rem;border-radius:999px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem;margin:.9rem 0}
+.qt{margin:0 0 .7rem;font-weight:600;max-width:none;display:flex;gap:.7rem}
+.qn{flex:none;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font:700 .85rem var(--mono);margin-top:.1rem}
+.opts{display:grid;gap:.45rem}
+.opt{text-align:left;padding:.6rem .85rem;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer;line-height:1.4}
+.opt:hover:not(:disabled){border-color:var(--accent);background:var(--tint)}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok)}
+.opt.ok::after{content:" ✓";color:var(--ok);font-weight:800}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad)}
+.opt.bad::after{content:" ✕";color:var(--bad);font-weight:800}
+.opt:disabled{cursor:default;color:var(--ink)}
+.why{margin-top:.8rem;padding:.7rem .9rem;border-radius:10px;background:var(--surface-2);font-size:.96rem}
+.why.good{background:var(--ok-soft)}
+.why button{margin-left:.5rem;border:1.5px solid var(--accent);background:transparent;color:var(--accent);border-radius:8px;padding:.1rem .6rem;cursor:pointer;font-weight:600}
+.mt{width:100%;border-collapse:collapse}
+.mt td{padding:.45rem .3rem;border-top:1px solid var(--line);vertical-align:middle}
+.mt td:first-child{width:62%}
+.mt select{font:inherit;padding:.4rem .5rem;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);width:100%}
+.mt select.ok{border-color:var(--ok);background:var(--ok-soft)}
+.mt select.bad{border-color:var(--bad);background:var(--bad-soft)}
+.mt .hint{display:block;font-size:.85rem;color:var(--bad);margin-top:.2rem}
+.act{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-top:.8rem}
+.btn.sm{padding:.45rem 1rem;font-size:.95rem}
+.hint-text{font-size:.93rem}
+
+/* glossary */
+.gl-in{width:100%;max-width:26rem;font:inherit;padding:.6rem .9rem;border:2px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+.gl{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem;margin-top:.9rem}
+.gl div{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:8px;padding:.5rem .8rem;font-size:.94rem;line-height:1.45}
+.gl b{display:block;font-family:var(--head);font-size:1rem}
+.final{background:var(--brand);color:#fff;border-radius:24px;padding:1.6rem;margin-top:1rem}
+.final h3{margin:0 0 .5rem}.final h3::before{display:none}
+.fbars{display:grid;gap:.6rem;margin:1rem 0}
+.fb{display:grid;grid-template-columns:9rem 1fr auto;gap:.7rem;align-items:center;font-size:.95rem}
+.fb .m{height:.8rem;border-radius:99px;background:rgba(255,255,255,.25);overflow:hidden}
+.fb .m i{display:block;height:100%;background:#fff;width:0;transition:width .4s}
+@media(max-width:560px){.fb{grid-template-columns:1fr auto}.fb .m{grid-column:1/-1;order:3}}
+footer{padding:3rem 1.25rem 4rem;text-align:center;color:var(--muted);font-size:.9rem}
+footer p{margin:.3rem auto}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#inicio">Banco de Dados <span>Unidade 1</span></a>
+    <nav aria-label="Tópicos">
+      <a href="#inicio" data-n="inicio">Início</a>
+      <a href="#t1" data-n="t1">1 Armazenagem</a>
+      <a href="#t2" data-n="t2">2 DER</a>
+      <a href="#t3" data-n="t3">3 Modelagem</a>
+      <a href="#fim" data-n="fim">Revisão</a>
+    </nav>
+    <div class="bar-r">
+      <span class="score" id="scoreBar" title="Exercícios acertados">0/0</span>
+      <button class="icon" id="themeBtn" aria-label="Alternar entre tema claro e escuro">◐</button>
+    </div>
+  </div>
+  <div class="prog" id="prog"></div>
+</header>
+
+<div class="page" data-page="inicio">
+<section class="hero" id="topo">
+  <div class="hero-in">
+    <div>
+      <p class="hero-top">Banco de Dados · Unidade 1</p>
+      <h1>Histórico de armazenamento e modelagem de dados</h1>
+      <a class="btn" href="#t1">Começar pelo tópico 1</a>
+    </div>
+    <div class="bitcard">
+      <p class="bc-title">Experimente: 8 bits formam 1 caractere</p>
+      <div class="byte" id="byte"></div>
+      <div class="bc-out">
+        <div class="bc-char" id="bcChar">B</div>
+        <dl><dt>decimal</dt><dd id="bcDec">66</dd><dt>hexadecimal</dt><dd id="bcHex">42</dd></dl>
+      </div>
+      <div class="bc-q"><span>Atalhos:</span><button data-set="66">B</button><button data-set="68">D</button><span>B + D = BD, de “banco de dados”</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap intro">
+  <div class="skills">
+    <div class="skill">Entender por que precisamos estruturar e armazenar dados</div>
+    <div class="skill">Criar um modelo conceitual a partir de um texto descritivo</div>
+    <div class="skill">Usar o modelo de entidade e relacionamento</div>
+    <div class="skill">Passar o modelo para o nível lógico (tabelas, chaves)</div>
+  </div>
+  <h3 style="margin-top:1.6rem">Mapa da unidade</h3>
+  <div class="map">
+    <a href="#t1"><b>1. Armazenagem</b><span>Como guardamos informação ao longo da história e por que surgiram os bancos de dados.</span></a><i>→</i>
+    <a href="#t2"><b>2. DER</b><span>O “alfabeto” do desenho: entidades, atributos e relacionamentos.</span></a><i>→</i>
+    <a href="#t3"><b>3. Modelagem</b><span>Do texto do cliente até as tabelas do banco.</span></a>
+  </div>
+</section>
+</div>
+
+<!-- ====================== TÓPICO 1 ====================== -->
+<section class="wrap topic page" data-page="t1" id="pg-t1">
+  <div class="topic-head"><div class="tnum">1</div><div><h2>Armazenagem de dados e sua cronologia</h2><p>O que é um dado, como ele é guardado e como chegamos aos bancos de dados atuais.</p></div></div>
+
+  <h3>O que é um dado?</h3>
+  <p>Para o computador, um <b>dado</b> é o registro de um fato qualquer, guardado em <b>representação binária</b>: apenas zeros e uns.</p>
+  <p>Mas como a letra “A” vira zeros e uns? Cada caractere recebe um código binário numa <b>tabela de caracteres</b>. A tabela original, da qual as outras derivam, é a <b>tabela ASCII</b> (<i>American Standard for Coded Information Interchange</i>). Segundo o material, cada caractere ocupa <b>8 bits</b>, o que dá 2⁸ = <b>256 combinações</b> diferentes.</p>
+
+  <div class="example"><p><b>Pense assim:</b> são 8 lâmpadas em fila. Lâmpada acesa = 1, apagada = 0. Cada combinação de lâmpadas representa um caractere diferente. Foi isso que você fez no topo da página.</p></div>
+
+  <div class="panel">
+    <div class="conv-in">
+      <label for="convIn"><b>Digite algo e veja o código de cada caractere:</b></label>
+      <input id="convIn" value="Dados" maxlength="10" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="conv-out" id="convOut" aria-live="polite"></div>
+    <p class="small">Repare que “a” e “A” têm códigos diferentes. O <span class="mono">0</span> vale 30 em hexadecimal e o <span class="mono">A</span> vale 41, como na tabela do material.<br>Nota: o ASCII original usa 7 bits (128 símbolos); as versões de 8 bits (256) o ampliam. Para a prova, siga o material: 8 bits.</p>
+  </div>
+
+  <h3>Do caractere ao banco de dados</h3>
+  <p>Caracteres juntos formam palavras e números. Quando um conjunto de caracteres tem <b>significado</b> (um nome, uma idade, um salário), ele é um <b>campo</b>. Vários campos sobre a mesma pessoa ou coisa formam um <b>registro</b>. Vários registros do mesmo assunto formam um <b>arquivo</b> (que no banco de dados chamaremos de <b>entidade</b> ou tabela). E o conjunto organizado de tudo isso é o <b>banco de dados</b>.</p>
+  <p><b>Clique em cada degrau</b> para ver onde ele aparece na tabela:</p>
+  <div class="panel ladder">
+    <div>
+      <div class="steps" id="steps"></div>
+      <div class="lad-info" id="ladInfo"></div>
+    </div>
+    <div class="db" id="ladView" data-level="char">
+      <div class="tblwrap t-func">
+        <div class="tname">Funcionários</div>
+        <table><thead><tr><th>Nome</th><th>Documento</th><th>Salário</th></tr></thead>
+        <tbody>
+          <tr class="r1"><td class="c1"><span class="ch">Y</span>asmin Albuquerque</td><td>111.222.333-44</td><td>R$ 6.800</td></tr>
+          <tr><td>Kayky Dorta</td><td>555.666.777-88</td><td>R$ 4.200</td></tr>
+          <tr><td>Gislaine Rosa</td><td>999.000.111-22</td><td>R$ 2.900</td></tr>
+        </tbody></table>
+      </div>
+      <div class="tblwrap t-dep">
+        <div class="tname">Departamentos</div>
+        <table><thead><tr><th>Código</th><th>Nome</th></tr></thead>
+        <tbody><tr><td>1</td><td>Vendas</td></tr><tr><td>2</td><td>TI</td></tr></tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <h3>A linha do tempo da informação</h3>
+  <p>Sempre precisamos guardar informação. O que mudou foi <b>como</b> guardamos e <b>como achamos</b> o que guardamos. Clique em cada etapa:</p>
+  <div class="panel">
+    <div class="tl-track" id="tlTrack"></div>
+    <div class="tl-card" id="tlCard"></div>
+  </div>
+
+  <h3>O SGBD: o “gerente” do banco de dados</h3>
+  <p>Com o modelo relacional, surgiu um conjunto de softwares para cuidar de toda a informação guardada e controlar <b>quem pode acessá-la</b>: o <b>Sistema de Gerenciamento de Banco de Dados (SGBD)</b>. Ele guarda não só os dados, mas também a descrição de como eles estão guardados (estrutura, tipos e restrições), em uma área chamada <b>catálogo</b>.</p>
+  <div class="panel">
+    <svg class="sv" viewBox="0 0 760 290" role="img" aria-label="Usuários e aplicações falam com o SGBD, que acessa o banco de dados">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+      <g class="sv-line" marker-end="url(#ar)">
+        <path d="M150 62 L225 120" marker-end="url(#ar)"/><path d="M150 145 L225 145" marker-end="url(#ar)"/><path d="M150 228 L225 170" marker-end="url(#ar)"/>
+        <path d="M475 145 L555 145" marker-end="url(#ar)"/>
+      </g>
+      <g><rect class="sv-box" x="10" y="38" width="140" height="48" rx="10"/><text class="sv-tx" x="80" y="68" text-anchor="middle">Aplicativo</text>
+      <rect class="sv-box" x="10" y="121" width="140" height="48" rx="10"/><text class="sv-tx" x="80" y="151" text-anchor="middle">Site</text>
+      <rect class="sv-box" x="10" y="204" width="140" height="48" rx="10"/><text class="sv-tx" x="80" y="234" text-anchor="middle">Analista</text></g>
+      <rect class="sv-fill" x="230" y="25" width="245" height="240" rx="16"/>
+      <text class="sv-w" x="352" y="62" text-anchor="middle" style="font-size:22px">SGBD</text>
+      <g class="sv-w" style="font-weight:500;font-size:14.5px"><text x="255" y="105">• Controla quem acessa</text><text x="255" y="135">• Garante integridade</text><text x="255" y="165">• Evita dados repetidos</text><text x="255" y="195">• Guarda o catálogo</text><text x="255" y="225">• Responde às consultas</text></g>
+      <path class="sv-box" d="M565 80 v130 a70 24 0 0 0 140 0 v-130"/><ellipse class="sv-box" cx="635" cy="80" rx="70" ry="24"/>
+      <text class="sv-tx" x="635" y="150" text-anchor="middle">Banco</text><text class="sv-tx" x="635" y="172" text-anchor="middle">de dados</text>
+    </svg>
+    <p class="small">Exemplos de SGBD: <span class="chip">Microsoft SQL Server</span><span class="chip">Oracle</span><span class="chip">MySQL</span><span class="chip">PostgreSQL</span></p>
+  </div>
+
+  <h3>Por que não guardar tudo em arquivos soltos?</h3>
+  <p>Guardar informação em sistemas de arquivos comuns traz sete problemas clássicos (Silberschatz). O SGBD existe para resolvê-los. Abra cada um:</p>
+  <div id="probs"></div>
+
+  <h3>Tipos de banco de dados (modelos de organização)</h3>
+  <p>Os dados podem ser organizados de formas diferentes. Veja os quatro modelos do material:</p>
+  <div class="panel" id="models">
+    <div class="tabs" role="tablist">
+      <button class="tab" data-tab="hier">Hierárquico</button>
+      <button class="tab" data-tab="rede">Em rede</button>
+      <button class="tab" data-tab="oo">Orientado a objetos</button>
+      <button class="tab" data-tab="rel">Relacional</button>
+    </div>
+    <div data-panel="hier">
+      <p>É o <b>primeiro</b> modelo. Os dados ficam em <b>registros</b> ligados por uma relação <b>pai-filho</b>, formando uma <b>árvore</b>. O primeiro registro é a <b>raiz</b>. Um pai pode ter vários filhos ou nenhum, e para chegar a um filho é preciso passar pela raiz.</p>
+      <svg class="sv" viewBox="0 0 520 210" style="max-width:520px" role="img" aria-label="Árvore: Fornecedor com filhos Contas a pagar e Produtos">
+        <g class="sv-line"><path d="M260 66 L130 140"/><path d="M260 66 L390 140"/></g>
+        <rect class="sv-fill" x="185" y="22" width="150" height="44" rx="10"/><text class="sv-w" x="260" y="50" text-anchor="middle">Fornecedor</text>
+        <rect class="sv-box" x="50" y="140" width="160" height="44" rx="10"/><text class="sv-tx" x="130" y="168" text-anchor="middle">Contas a pagar</text>
+        <rect class="sv-box" x="310" y="140" width="160" height="44" rx="10"/><text class="sv-tx" x="390" y="168" text-anchor="middle">Produtos</text>
+        <text class="sv-mu" x="350" y="40">← raiz (pai)</text><text class="sv-mu" x="215" y="112" text-anchor="end">filhos</text>
+      </svg>
+    </div>
+    <div data-panel="rede">
+      <p>Parecido com o hierárquico, mas <b>sem hierarquia rígida</b>: um registro pode se ligar a <b>vários</b> outros (formato de <b>grafo</b>), e é possível chegar direto a qualquer registro, sem passar pela raiz.</p>
+      <svg class="sv" viewBox="0 0 520 270" style="max-width:520px" role="img" aria-label="Rede: Departamento de vendas, Comissão, Funcionário e Vendas ligados entre si">
+        <g class="sv-line"><path d="M260 66 L120 130"/><path d="M260 66 L400 130"/><path d="M120 160 L260 218"/><path d="M400 160 L260 218"/></g>
+        <rect class="sv-fill" x="170" y="22" width="180" height="44" rx="10"/><text class="sv-w" x="260" y="50" text-anchor="middle">Depto. de vendas</text>
+        <rect class="sv-box" x="40" y="116" width="160" height="44" rx="10"/><text class="sv-tx" x="120" y="144" text-anchor="middle">Comissão</text>
+        <rect class="sv-box" x="320" y="116" width="160" height="44" rx="10"/><text class="sv-tx" x="400" y="144" text-anchor="middle">Funcionário</text>
+        <rect class="sv-box" x="180" y="216" width="160" height="44" rx="10"/><text class="sv-tx" x="260" y="244" text-anchor="middle">Vendas</text>
+        <text class="sv-mu" x="350" y="238">“Vendas” tem dois pais</text>
+      </svg>
+    </div>
+    <div data-panel="oo">
+      <p>Usa a teoria da <b>orientação a objetos</b> (a mesma das linguagens de programação, como Java). Cada registro lembra uma <b>classe</b>: guarda dados e também comportamentos.</p>
+      <div class="classbox"><div>Cliente</div><div>nome</div><div>cpf</div><div>calcularDesconto()</div></div>
+    </div>
+    <div data-panel="rel">
+      <p>É o modelo da <b>maioria dos SGBDs atuais</b> e o foco deste curso. Os dados ficam em <b>tabelas</b> (relações): cada <b>coluna é um campo</b> e cada <b>linha é um registro</b>. As tabelas se ligam por campos em comum, o que evita repetir informação.</p>
+      <div class="tcs" id="relEx"></div>
+      <p class="small">O resultado de uma consulta também é um conjunto de linhas, como uma “tabela virtual” que só existe enquanto a consulta está ativa.</p>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-h"><h3>Exercícios do tópico 1</h3><span class="tscore" data-ts="t1">0/0</span></div>
+    <div id="q1"></div>
+    <div id="m1"></div>
+  </div>
+</section>
+
+<!-- ====================== TÓPICO 2 ====================== -->
+<section class="wrap topic page" data-page="t2" id="pg-t2">
+  <div class="topic-head"><div class="tnum">2</div><div><h2>Diagrama de entidade e relacionamento</h2><p>Como desenhar o banco de dados antes de construí-lo.</p></div></div>
+
+  <h3>O que é o DER?</h3>
+  <p>Todo banco de dados nasce de um <b>projeto</b>: quais tabelas existirão e como elas se relacionam. Para planejar isso usamos o <b>Modelo de Entidade e Relacionamento</b> (MER), criado por <b>Peter Chen em 1976</b>. Sua representação gráfica é o <b>DER</b> (diagrama de entidade e relacionamento). É uma modelagem <b>conceitual</b>.</p>
+  <div class="example"><p><b>Analogia:</b> o DER é a <b>planta da casa</b>. Você desenha e conversa com o cliente antes de comprar tijolo.</p></div>
+  <p>Uma frase simples ajuda a entender: <b>“Cliente compra Produto”</b>. “Cliente” e “Produto” são <b>entidades</b>; “compra” é o <b>relacionamento</b>.</p>
+  <div class="panel">
+    <svg class="sv" viewBox="0 0 760 150" role="img" aria-label="Legenda dos símbolos do DER">
+      <rect class="sv-box" x="20" y="30" width="110" height="46" rx="6"/><text class="sv-tx" x="75" y="59" text-anchor="middle">Entidade</text><text class="sv-mu" x="75" y="102" text-anchor="middle">retângulo</text>
+      <circle class="sv-dot" cx="250" cy="53" r="12"/><text class="sv-tx" x="272" y="58">Atributo</text><text class="sv-mu" x="250" y="102" text-anchor="middle">círculo</text>
+      <circle class="sv-dotf" cx="420" cy="53" r="12"/><text class="sv-tx" x="442" y="58">Chave</text><text class="sv-mu" x="420" y="102" text-anchor="middle">círculo preenchido</text>
+      <polygon class="sv-box" points="620,28 680,53 620,78 560,53"/><text class="sv-mu" x="620" y="102" text-anchor="middle">losango (relacionamento)</text><text class="sv-sm" x="620" y="58" text-anchor="middle">compra</text>
+    </svg>
+    <p class="small">Para praticar, o material usa o <b>BR Modelo Web</b> (app.brmodeloweb.com), onde você cria os diagramas e gera o modelo lógico automaticamente.</p>
+  </div>
+
+  <h3>Entidade</h3>
+  <p>É a representação abstrata de um objeto do mundo real: <i>cliente, funcionário, agência, produto, venda</i>. No desenho, vira um <b>retângulo</b> com o nome. Mais tarde, cada entidade vira uma <b>tabela</b>, e cada linha dessa tabela é uma <b>instância</b> (um cliente específico, por exemplo).</p>
+
+  <h3>Atributos e seus tipos</h3>
+  <p>Atributos são os valores que <b>descrevem</b> a entidade. Na entidade Cliente: nome, endereço, CPF, telefone. Eles aparecem como <b>círculos</b>. Existem quatro tipos. Clique em um tipo para destacá-lo no desenho:</p>
+  <div class="panel">
+    <div class="chips" id="attrChips">
+      <button class="tab" data-f="all" aria-selected="true">Todos</button>
+      <button class="tab" data-f="det">Determinante (chave)</button>
+      <button class="tab" data-f="mono">Monovalorado</button>
+      <button class="tab" data-f="comp">Composto</button>
+      <button class="tab" data-f="multi">Multivalorado</button>
+    </div>
+    <svg class="sv attr-svg" id="attrSvg" data-f="all" viewBox="0 0 800 400" role="img" aria-label="Entidade Cliente com atributos de quatro tipos">
+      <g class="sv-thin">
+        <line x1="200" y1="60" x2="390" y2="200"/><line x1="200" y1="150" x2="390" y2="200"/><line x1="200" y1="250" x2="390" y2="200"/><line x1="200" y1="340" x2="390" y2="200"/>
+        <line x1="560" y1="80" x2="390" y2="200"/><line x1="560" y1="330" x2="390" y2="200"/>
+        <line x1="560" y1="80" x2="680" y2="35"/><line x1="560" y1="80" x2="680" y2="125"/>
+      </g>
+      <rect class="sv-fill" x="320" y="175" width="140" height="50" rx="8"/><text class="sv-w" x="390" y="206" text-anchor="middle" style="font-size:19px">Cliente</text>
+      <g class="at" data-kind="det"><circle class="sv-dotf" cx="200" cy="60" r="10"/><text class="sv-tx" x="182" y="65" text-anchor="end">ID_Cliente</text></g>
+      <g class="at" data-kind="mono"><circle class="sv-dot" cx="200" cy="150" r="10"/><text class="sv-tx" x="182" y="155" text-anchor="end">Nome</text></g>
+      <g class="at" data-kind="mono"><circle class="sv-dot" cx="200" cy="250" r="10"/><text class="sv-tx" x="182" y="255" text-anchor="end">CPF</text></g>
+      <g class="at" data-kind="mono"><circle class="sv-dot" cx="200" cy="340" r="10"/><text class="sv-tx" x="182" y="345" text-anchor="end">Data de nascimento</text></g>
+      <g class="at" data-kind="comp"><circle class="sv-dot" cx="560" cy="80" r="10"/><text class="sv-tx" x="545" y="62" text-anchor="end">Endereço</text>
+        <circle class="sv-dot" cx="680" cy="35" r="7"/><text class="sv-sm" x="692" y="40">Logradouro</text>
+        <circle class="sv-dot" cx="680" cy="125" r="7"/><text class="sv-sm" x="692" y="130">Número</text></g>
+      <g class="at" data-kind="multi"><circle class="sv-dot" cx="560" cy="330" r="12"/><circle class="sv-dotf" cx="560" cy="330" r="5"/><text class="sv-tx" x="582" y="335">Dependentes</text></g>
+    </svg>
+    <div class="lad-info" id="attrInfo"></div>
+  </div>
+  <div class="note">
+    <p><b>O atributo determinante</b> (chave) identifica cada registro de forma <b>única</b>. No exemplo, o <span class="mono">ID_Cliente</span>. Ele tem três características:</p>
+    <p>• não pode ser alterado; • deve existir em toda entidade; • pode ser formado por mais de um atributo.</p>
+    <p>Por que não usar só o nome? Porque podem existir dois clientes chamados “Kayky Dorta”.</p>
+  </div>
+
+  <h3>Especialização e generalização</h3>
+  <p>Algumas entidades têm “subtipos”. Uma <b>conta corrente</b> pode ser de <b>pessoa física</b> ou <b>pessoa jurídica</b>. Dizemos que pessoa física e jurídica são <b>especializações</b>, e que conta corrente é a <b>generalização</b> delas.</p>
+  <p>Para classificar, responda duas perguntas. Use os botões e veja exemplos reais de cada caso:</p>
+  <div class="panel" id="spec">
+    <p class="spec-q">1) Toda ocorrência precisa ser de alguma especialização?</p>
+    <div class="seg"><button data-g="total" aria-pressed="true">Sim: total</button><button data-g="parcial" aria-pressed="false">Não: parcial</button></div>
+    <p class="spec-q">2) Pode ser de mais de uma ao mesmo tempo?</p>
+    <div class="seg"><button data-h="disj" aria-pressed="true">Não: disjuntiva</button><button data-h="comp" aria-pressed="false">Sim: compartilhada</button></div>
+    <h4 id="specTitle"></h4>
+    <p id="specDesc"></p>
+    <div class="items" id="specItems"></div>
+    <div class="verdict" id="specVerdict"></div>
+  </div>
+  <div class="note"><p><b>Resumo para decorar:</b> <b>Total</b> = ninguém fica de fora. <b>Parcial</b> = pode haver “outros”. <b>Disjuntiva</b> = é uma ou outra. <b>Compartilhada</b> = pode ser várias ao mesmo tempo.</p></div>
+
+  <h3>Relacionamentos e cardinalidade</h3>
+  <p>Um <b>relacionamento</b> é a associação entre entidades. Ele tem uma <b>cardinalidade</b>, escrita como <b>(x, y)</b>: <b>x</b> é o mínimo e <b>y</b> é o máximo. Lê-se: “uma instância de A se relaciona com, no mínimo x e no máximo y, instâncias de B”. (Mínimo 0 significa que o relacionamento é opcional.)</p>
+  <p>Existem três tipos. Passe o mouse (ou toque) sobre um item para ver suas ligações:</p>
+  <div class="panel" id="rels">
+    <div class="tabs"><button class="tab" data-r="11" aria-selected="true">Um para um</button><button class="tab" data-r="1n" aria-selected="false">Um para muitos</button><button class="tab" data-r="nn" aria-selected="false">Muitos para muitos</button></div>
+    <div id="relView"></div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-h"><h3>Exercícios do tópico 2</h3><span class="tscore" data-ts="t2">0/0</span></div>
+    <div id="q2"></div>
+    <div id="m2a"></div>
+    <div id="m2b"></div>
+  </div>
+</section>
+
+<!-- ====================== TÓPICO 3 ====================== -->
+<section class="wrap topic page" data-page="t3" id="pg-t3">
+  <div class="topic-head"><div class="tnum">3</div><div><h2>Modelagem de banco de dados</h2><p>O caminho do pedido do cliente até as tabelas.</p></div></div>
+
+  <h3>O que é modelar?</h3>
+  <p>Modelagem é um processo de <b>abstração</b>: definir quais são as <b>entidades</b>, quais <b>atributos</b> as descrevem, quais <b>relacionamentos</b> existem e de que tipo. Quanto melhor o modelo, mais eficiente o banco será para representar os dados reais da empresa.</p>
+  <h3>As 3 fases da modelagem</h3>
+  <p>A modelagem passa por <b>três fases</b>. A quarta, o modelo físico, vem na próxima unidade. Clique em cada fase:</p>
+  <div class="panel" id="phases">
+    <div class="ph-row" id="phRow"></div>
+    <div class="meter" aria-hidden="true"><i id="phMeter"></i></div>
+    <p class="small" style="margin:0">Quanto mais à direita, mais detalhe técnico.</p>
+    <div class="ph-body" id="phBody"></div>
+    <div class="example" id="phHouse"></div>
+  </div>
+
+  <h3>Exemplo completo: clientes, produtos e vendas</h3>
+  <p>Vamos seguir um único problema pelas três fases, como no material. Escolha a etapa:</p>
+  <div class="panel" id="exViews">
+    <div class="tabs">
+      <button class="tab" data-tab="d">1. Descritivo</button>
+      <button class="tab" data-tab="c">2. Conceitual</button>
+      <button class="tab" data-tab="l">3. Lógico</button>
+      <button class="tab" data-tab="x">4. Com dados reais</button>
+    </div>
+
+    <div data-panel="d">
+      <p>Este é o texto que sai da conversa com o cliente. Ligue os destaques para achar o que importa:</p>
+      <div class="chips" id="hlChips">
+        <button class="tab" data-hl="e" aria-selected="true">Entidades</button>
+        <button class="tab" data-hl="a" aria-selected="true">Atributos</button>
+        <button class="tab" data-hl="r" aria-selected="true">Relacionamentos</button>
+      </div>
+      <div class="note show-e show-a show-r" id="descText">
+        <p>Uma empresa possui um cadastro de <span class="e">clientes</span>, identificado por um <span class="a">número</span>, com <span class="a">nome</span>, <span class="a">CPF</span>, <span class="a">endereço</span> e <span class="a">telefone</span>. Da mesma forma, existe um cadastro de <span class="e">produtos</span>, identificado por um <span class="a">número</span>, com <span class="a">descrição</span> e <span class="a">valor</span>.</p>
+        <p>A um cliente <span class="r">é possível vender um ou mais produtos</span>. Na <span class="e">venda</span>, registra-se a <span class="a">data</span>, qual é o cliente e quais produtos ele compra, com a <span class="a">quantidade</span> de cada um, para calcular o valor total.</p>
+        <p>Uma venda <span class="r">é feita a apenas um cliente</span>, mas o mesmo produto <span class="r">pode ser vendido a vários clientes</span> em vendas diferentes.</p>
+      </div>
+    </div>
+
+    <div data-panel="c">
+      <p>Agora o texto vira desenho. Não há tecnologia definida ainda: é fácil de mostrar ao cliente.</p>
+      <svg class="sv" viewBox="0 0 860 380" role="img" aria-label="Diagrama conceitual: Cliente realiza Venda, Venda contém Produto, com atributos">
+        <g class="sv-line"><line x1="140" y1="173" x2="210" y2="173"/><line x1="290" y1="173" x2="360" y2="173"/><line x1="480" y1="173" x2="560" y2="173"/><line x1="640" y1="173" x2="700" y2="173"/></g>
+        <g class="sv-thin"><line x1="50" y1="196" x2="50" y2="350"/><line x1="380" y1="196" x2="380" y2="260"/><line x1="580" y1="200" x2="580" y2="230"/><line x1="720" y1="196" x2="720" y2="290"/>
+          <line x1="50" y1="230" x2="66" y2="230"/><line x1="50" y1="260" x2="66" y2="260"/><line x1="50" y1="290" x2="66" y2="290"/><line x1="50" y1="320" x2="66" y2="320"/><line x1="50" y1="350" x2="66" y2="350"/>
+          <line x1="380" y1="230" x2="396" y2="230"/><line x1="380" y1="260" x2="396" y2="260"/>
+          <line x1="580" y1="230" x2="596" y2="230"/>
+          <line x1="720" y1="230" x2="736" y2="230"/><line x1="720" y1="260" x2="736" y2="260"/><line x1="720" y1="290" x2="736" y2="290"/></g>
+        <rect class="sv-fill" x="20" y="150" width="120" height="46" rx="6"/><text class="sv-w" x="80" y="179" text-anchor="middle">Cliente</text>
+        <rect class="sv-fill" x="360" y="150" width="120" height="46" rx="6"/><text class="sv-w" x="420" y="179" text-anchor="middle">Venda</text>
+        <rect class="sv-fill" x="700" y="150" width="120" height="46" rx="6"/><text class="sv-w" x="760" y="179" text-anchor="middle">Produto</text>
+        <polygon class="sv-box" points="250,148 290,173 250,198 210,173"/><text class="sv-mu" x="250" y="177" text-anchor="middle" style="font-size:11px">realiza</text>
+        <rect class="sv-box" x="560" y="146" width="80" height="54" rx="6"/><polygon class="sv-box" points="600,152 630,173 600,194 570,173"/><text class="sv-mu" x="600" y="177" text-anchor="middle" style="font-size:10px">contém</text>
+        <text class="sv-mu" x="600" y="136" text-anchor="middle">Item da venda</text>
+        <g class="sv-tx" style="font-weight:800"><text x="150" y="165">1</text><text x="338" y="165">N</text><text x="490" y="165">N</text><text x="676" y="165">N</text></g>
+        <g><circle class="sv-dotf" cx="66" cy="230" r="6"/><text class="sv-sm" x="80" y="235">id_cliente</text><circle class="sv-dot" cx="66" cy="260" r="6"/><text class="sv-sm" x="80" y="265">nome</text><circle class="sv-dot" cx="66" cy="290" r="6"/><text class="sv-sm" x="80" y="295">cpf</text><circle class="sv-dot" cx="66" cy="320" r="6"/><text class="sv-sm" x="80" y="325">endereço</text><circle class="sv-dot" cx="66" cy="350" r="6"/><text class="sv-sm" x="80" y="355">telefone</text></g>
+        <g><circle class="sv-dotf" cx="396" cy="230" r="6"/><text class="sv-sm" x="410" y="235">id_venda</text><circle class="sv-dot" cx="396" cy="260" r="6"/><text class="sv-sm" x="410" y="265">data</text></g>
+        <g><circle class="sv-dot" cx="596" cy="230" r="6"/><text class="sv-sm" x="610" y="235">quantidade</text></g>
+        <g><circle class="sv-dotf" cx="736" cy="230" r="6"/><text class="sv-sm" x="750" y="235">id_produto</text><circle class="sv-dot" cx="736" cy="260" r="6"/><text class="sv-sm" x="750" y="265">descrição</text><circle class="sv-dot" cx="736" cy="290" r="6"/><text class="sv-sm" x="750" y="295">valor</text></g>
+      </svg>
+      <div class="note"><p><b>Como ler:</b> um cliente faz várias vendas (1 para N); cada venda é de um só cliente. Venda e Produto são <b>muitos para muitos</b>, então o relacionamento vira uma <b>entidade associativa</b> (“Item da venda”), que guarda a <b>quantidade</b> de cada produto na venda.</p></div>
+    </div>
+
+    <div data-panel="l">
+      <p>Com a tecnologia definida, o diagrama vira <b>tabelas</b>. Cada entidade virou uma tabela; atributos-chave viraram <b>PK</b> (<i>Primary Key</i>, chave primária); e para ligar tabelas surgiram campos <b>FK</b> (<i>Foreign Key</i>, chave estrangeira). Aqui também se definem os <b>tipos de dados</b> (veremos nas próximas unidades).</p>
+      <p><b>Toque ou passe o mouse em um campo</b> para ver onde ele reaparece:</p>
+      <div class="tcs" id="logic"></div>
+      <div class="note"><p><b>PK</b> identifica cada linha da própria tabela. <b>FK</b> é uma “cópia” da PK de outra tabela, usada para apontar para ela.</p></div>
+    </div>
+
+    <div data-panel="x">
+      <p>Veja como as FKs ligam as linhas na prática. Toque em um número (cliente, venda ou produto) para destacar as linhas relacionadas:</p>
+      <div class="dgrid" id="dataEx">
+        <table class="dtbl"><caption>Cliente</caption><tr><th>id_cliente</th><th>nome</th></tr>
+          <tr><td data-k="c1">1</td><td>Yasmin Albuquerque</td></tr><tr><td data-k="c2">2</td><td>Kayky Dorta</td></tr></table>
+        <table class="dtbl"><caption>Produto</caption><tr><th>id_produto</th><th>descrição</th><th>valor</th></tr>
+          <tr><td data-k="p10">10</td><td>Caneta</td><td>R$ 3</td></tr><tr><td data-k="p20">20</td><td>Caderno</td><td>R$ 20</td></tr><tr><td data-k="p30">30</td><td>Mochila</td><td>R$ 120</td></tr></table>
+        <table class="dtbl"><caption>Venda</caption><tr><th>id_venda</th><th>data</th><th>id_cliente (FK)</th></tr>
+          <tr><td data-k="v101">101</td><td>10/03</td><td data-k="c1">1</td></tr><tr><td data-k="v102">102</td><td>11/03</td><td data-k="c2">2</td></tr></table>
+        <table class="dtbl"><caption>Item_Venda</caption><tr><th>id_venda (FK)</th><th>id_produto (FK)</th><th>qtd</th></tr>
+          <tr><td data-k="v101">101</td><td data-k="p10">10</td><td>2</td></tr><tr><td data-k="v101">101</td><td data-k="p20">20</td><td>1</td></tr><tr><td data-k="v102">102</td><td data-k="p30">30</td><td>1</td></tr></table>
+      </div>
+      <div class="total"><b>Total da venda 101 (Yasmin):</b> 2 × R$ 3 + 1 × R$ 20 = <b>R$ 26</b>. É por isso que a quantidade precisa estar registrada: sem ela não dá para calcular o total.</div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-h"><h3>Exercícios do tópico 3</h3><span class="tscore" data-ts="t3">0/0</span></div>
+    <div id="q3"></div>
+    <h4>Mini-projeto: biblioteca</h4>
+    <div class="note"><p>Uma biblioteca cadastra <b>leitores</b> (matrícula, nome, e-mail) e <b>livros</b> (código, título, autor). Um leitor pode pegar vários livros emprestados ao longo do tempo, e um mesmo livro pode ser emprestado a vários leitores em momentos diferentes. Em cada empréstimo, registram-se a data de retirada e a data de devolução.</p></div>
+    <div id="q3b"></div>
+  </div>
+</section>
+
+<!-- ====================== REVISÃO ====================== -->
+<section class="wrap topic page" data-page="fim" id="pg-fim">
+  <div class="topic-head"><div class="tnum" style="font-size:2rem">✓</div><div><h2>Revisão da unidade</h2><p>Glossário rápido e seu desempenho nos exercícios.</p></div></div>
+  <h3>Glossário</h3>
+  <input class="gl-in" id="glIn" type="search" placeholder="Buscar termo (ex.: chave, campo, SGBD)" aria-label="Buscar no glossário">
+  <div class="gl" id="gl"></div>
+  <h3>Seu desempenho</h3>
+  <div class="final">
+    <h3>Exercícios acertados</h3>
+    <div class="fbars" id="fbars"></div>
+    <button class="btn" id="resetAll">Refazer tudo</button>
+  </div>
+</section>
+
+<footer>
+  <p>Resumo feito a partir do material “Banco de Dados — Unidade 1” (Universidade São Francisco, EAD).</p>
+  <p>Use este resumo como apoio e confira sempre o material original.</p>
+</footer>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+/* ---------- theme, progress, nav ---------- */
+(function(){
+  const saved=store.get('bd-theme'); if(saved) document.documentElement.dataset.theme=saved;
+  $('#themeBtn').addEventListener('click',()=>{
+    const cur=document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+    const next=cur==='dark'?'light':'dark'; document.documentElement.dataset.theme=next; store.set('bd-theme',next);
+  });
+  const prog=$('#prog');
+  const upd=()=>{const h=document.documentElement.scrollHeight-innerHeight; prog.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')'};
+  addEventListener('scroll',upd,{passive:true}); upd();
+})();
+
+/* ---------- score registry ---------- */
+const prog={}, totals={t1:0,t2:0,t3:0};
+const topicNames={t1:'1. Armazenagem',t2:'2. DER',t3:'3. Modelagem'};
+function declare(t){totals[t]++}
+function register(t,key,ok){prog[key]={t,ok};renderScore()}
+function unregister(key){delete prog[key];renderScore()}
+function renderScore(){
+  let all=0,good=0,tot=0;
+  ['t1','t2','t3'].forEach(t=>{
+    const g=Object.values(prog).filter(p=>p.t===t&&p.ok).length; tot+=totals[t]; good+=g;
+    $$('[data-ts="'+t+'"]').forEach(e=>e.textContent=g+'/'+totals[t]);
+  });
+  $('#scoreBar').textContent=good+'/'+tot;
+  const fb=$('#fbars');
+  if(fb){fb.innerHTML=['t1','t2','t3'].map(t=>{const g=Object.values(prog).filter(p=>p.t===t&&p.ok).length;const pct=totals[t]?Math.round(g/totals[t]*100):0;
+    return `<div class="fb"><span>${topicNames[t]}</span><span class="m"><i style="width:${pct}%"></i></span><b>${g}/${totals[t]}</b></div>`}).join('')}
+}
+
+/* ---------- generic helpers ---------- */
+function initTabs(root){
+  const tabs=$$('[data-tab]',root), panels=$$('[data-panel]',root);
+  const sel=id=>{tabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.tab===id));panels.forEach(p=>p.hidden=p.dataset.panel!==id)};
+  tabs.forEach(t=>t.addEventListener('click',()=>sel(t.dataset.tab)));
+  sel(tabs[0].dataset.tab);
+}
+function tableCard(name,cols){
+  return `<div class="tc"><div class="tc-h">${name}</div>`+cols.map(c=>`<div class="tc-c ${c.t||''}" ${c.k?`data-k="${c.k}"`:''}><span>${c.n}</span>${c.t?`<b>${c.t.split(' ').map(x=>x.toUpperCase()).join('/')}</b>`:''}</div>`).join('')+`</div>`;
+}
+function linkKeys(root){
+  let pin=null;
+  const set=k=>$$('[data-k]',root).forEach(e=>e.classList.toggle('lk',k!==null&&e.dataset.k===k));
+  root.addEventListener('mouseover',e=>{const t=e.target.closest('[data-k]');if(t&&pin===null)set(t.dataset.k)});
+  root.addEventListener('mouseout',()=>{if(pin===null)set(null)});
+  root.addEventListener('click',e=>{const t=e.target.closest('[data-k]');if(!t){pin=null;set(null);return}
+    if(pin===t.dataset.k){pin=null;set(null)}else{pin=t.dataset.k;set(pin)}});
+}
+
+/* ---------- hero bits ---------- */
+(function(){
+  let val=66; const byte=$('#byte');
+  for(let i=7;i>=0;i--){const b=document.createElement('button');b.type='button';b.className='bit';b.dataset.i=i;b.setAttribute('aria-label','bit de valor '+(1<<i));byte.append(b)}
+  function paint(){
+    $$('.bit',byte).forEach(b=>{const on=(val>>b.dataset.i)&1;b.textContent=on;b.setAttribute('aria-pressed',on?'true':'false')});
+    $('#bcChar').textContent=(val>=33&&val<127)?String.fromCharCode(val):'·';
+    $('#bcDec').textContent=val; $('#bcHex').textContent=val.toString(16).toUpperCase().padStart(2,'0');
+  }
+  byte.addEventListener('click',e=>{const b=e.target.closest('.bit');if(!b)return;val^=(1<<b.dataset.i);paint()});
+  $$('.bc-q button').forEach(b=>b.addEventListener('click',()=>{val=+b.dataset.set;paint()}));
+  paint();
+})();
+
+/* ---------- ASCII converter ---------- */
+(function(){
+  const inp=$('#convIn'),out=$('#convOut');
+  function r(){
+    out.innerHTML=[...inp.value].map(ch=>{const c=ch.charCodeAt(0);
+      if(c>255)return `<div class="cc"><big>${ch}</big><small>fora da tabela de 256</small></div>`;
+      return `<div class="cc"><big>${ch===' '?'␣':ch}</big><code>${c.toString(2).padStart(8,'0')}</code><small>hex ${c.toString(16).toUpperCase().padStart(2,'0')}</small></div>`}).join('')||'<span class="small">Digite alguma coisa…</span>';
+  }
+  inp.addEventListener('input',r); r();
+})();
+
+/* ---------- ladder ---------- */
+(function(){
+  const L=[
+    {k:'char',t:'Caractere',d:'A menor peça: uma letra, número ou símbolo, guardado como 8 bits.',ex:'A letra “Y” de “Yasmin” é guardada como 01011001.'},
+    {k:'campo',t:'Campo',d:'Um dado com significado: nome, idade, salário, documento, endereço…',ex:'“Yasmin Albuquerque” é o campo Nome do funcionário.'},
+    {k:'registro',t:'Registro',d:'Conjunto de campos que descrevem uma pessoa ou coisa por completo.',ex:'Nome + documento + salário da Yasmin formam o registro dela.'},
+    {k:'arquivo',t:'Arquivo / entidade',d:'Conjunto de registros do mesmo assunto, um por funcionário, por exemplo.',ex:'Todos os funcionários ficam na mesma tabela.'},
+    {k:'bd',t:'Banco de dados',d:'Conjunto organizado de dados guardados para serem recuperados depois, de forma rápida e objetiva.',ex:'Funcionários + Departamentos + … formam o banco de dados da empresa.'}
+  ];
+  const box=$('#steps'),info=$('#ladInfo'),view=$('#ladView');
+  L.forEach((l,i)=>{const b=document.createElement('button');b.type='button';b.className='step';b.textContent=l.t;
+    b.onclick=()=>sel(i);box.append(b)});
+  function sel(i){
+    $$('.step',box).forEach((b,j)=>b.setAttribute('aria-pressed',i===j));
+    view.dataset.level=L[i].k; info.innerHTML=`<p><b>${L[i].t}:</b> ${L[i].d}</p><p><b>Exemplo:</b> ${L[i].ex}</p>`;
+  }
+  sel(0);
+})();
+
+/* ---------- timeline ---------- */
+(function(){
+  const T=[
+    {y:'Pré-história',t:'Pinturas rupestres, hieróglifos, papiro e escrita cuneiforme',d:'Desde o início da humanidade precisamos guardar informação. Primeiro desenhando em cavernas, depois com hieróglifos, papiro e escrita cuneiforme.'},
+    {y:'Séc. XV',t:'Papel e imprensa',d:'Por séculos, o papel foi o principal meio de registro. Com a tipografia de Gutenberg (século XV), copiar ficou mais fácil. Mas achar e somar informações no papel dá muito trabalho: fechar o faturamento do mês podia levar mais de um dia e exigir dois funcionários só para isso.'},
+    {y:'Cartão perfurado',t:'Os primeiros registros da era computacional',d:'A fita e depois o cartão perfurado, usado por Herman Hollerith (fundador da empresa que, em 1924, virou IBM), guardavam informação por furos: com furo ou sem furo = 1 ou 0. Uma máquina específica lia e processava os dados.'},
+    {y:'Armários de aço',t:'Os primeiros “bancos de dados” (sem computador)',d:'Armários de aço guardavam cartões e fichas organizados por data ou ordem alfabética para facilitar a busca. Na comparação com o que vimos: <b>cada ficha é um registro</b> e <b>o armário é um arquivo</b>.'},
+    {y:'Anos 60',t:'Bancos de dados já nas empresas',d:'Fichas viraram registros digitais e armários viraram arquivos. Porém, o usuário precisava conhecer a <b>estrutura física</b> dos dados, pois os registros eram unidos por operações de ponteiros de baixo nível.'},
+    {y:'Anos 70',t:'Modelo relacional, modelo E-R e SQL',d:'Edgard F. Codd (matemático) formulou em 1968 os princípios do banco relacional, baseado em teoria dos conjuntos e álgebra relacional. Em 1976, Peter Chen criou o modelo de Entidade e Relacionamento. Também surgiu a linguagem SEQUEL (<i>Structured English Query Language</i>), futura SQL.'},
+    {y:'Anos 80',t:'A febre dos bancos relacionais',d:'Criar e vender sistemas com banco relacional virou febre. A SEQUEL foi padronizada pelo padrão ANSI, passou a se chamar <b>SQL</b> e se popularizou.'},
+    {y:'Anos 90',t:'Desktop, cliente-servidor e Internet',d:'Surgem Delphi, Visual Basic e outras ferramentas, o que popularizou os bancos relacionais. O modelo <b>cliente-servidor</b> vira regra: o banco fica centralizado e todos acessam a mesma informação. A Internet começa a permitir acesso remoto.'},
+    {y:'Anos 2000',t:'Multimídia e NoSQL',d:'Os bancos passam a guardar também imagens, músicas, vídeos e arquivos inteiros. Popularizam-se os bancos <b>NoSQL</b> (<i>Not Only SQL</i>), que trabalham de outras formas além do modelo relacional.'}
+  ];
+  const tr=$('#tlTrack'),cd=$('#tlCard');
+  T.forEach((e,i)=>{const b=document.createElement('button');b.type='button';b.className='tl-n';b.textContent=e.y;b.onclick=()=>sel(i);tr.append(b)});
+  function sel(i){$$('.tl-n',tr).forEach((b,j)=>b.setAttribute('aria-pressed',i===j));
+    cd.innerHTML=`<div class="tl-card"><h4>${T[i].y}: ${T[i].t}</h4><p>${T[i].d}</p></div>`}
+  sel(0);
+})();
+
+/* ---------- problems accordion ---------- */
+(function(){
+  const P=[
+    ['Redundância e inconsistência','A mesma informação fica copiada em vários arquivos, e as cópias podem ficar diferentes.','O telefone da Yasmin está em 3 planilhas. Você muda em uma e as outras ficam desatualizadas.','Guarda cada dado uma vez e liga as tabelas.'],
+    ['Dificuldade de acesso','Achar algo específico exige escrever um programa novo para cada pergunta.','Listar os clientes que compraram mais de R$ 1.000 no mês: sem banco, alguém precisa programar essa busca.','Consultas SQL respondem na hora.'],
+    ['Isolamento dos dados','Dados espalhados em arquivos de formatos diferentes são difíceis de juntar.','Vendas em Excel, estoque num .txt e clientes em um sistema antigo.','Um formato único e uma linguagem comum.'],
+    ['Problemas de integridade','As regras (restrições) ficam dentro dos programas. Para mudar uma regra, é preciso mexer em todos.','A regra “salário nunca pode ser negativo” precisa ser copiada em cada programa.','As regras ficam no banco, em um lugar só.'],
+    ['Problemas de atomicidade','Operações que devem acontecer juntas podem ser feitas só pela metade.','Transferir R$ 100: debita da conta A, a energia cai e o crédito na conta B nunca acontece.','Ou tudo acontece, ou nada acontece.'],
+    ['Anomalias de acesso concorrente','Vários usuários mexendo ao mesmo tempo podem desfazer o trabalho um do outro.','Dois vendedores vendem a última unidade do estoque no mesmo segundo.','Controla os acessos simultâneos.'],
+    ['Problemas de segurança','Em arquivos soltos, quem abre o arquivo vê tudo.','O estagiário abre a folha de pagamento e vê o salário de todos.','Permissões por usuário: cada um acessa só o que pode.']
+  ];
+  $('#probs').innerHTML=P.map((p,i)=>`<details class="prob"><summary>${p[0]}</summary><div class="prob-b"><p>${p[1]}</p><p><b>Exemplo:</b> ${p[2]}</p><p class="fix"><b>No SGBD:</b> ${p[3]}</p></div></details>`).join('');
+})();
+
+/* ---------- models tabs + relational example ---------- */
+(function(){
+  initTabs($('#models'));
+  $('#relEx').innerHTML=
+    tableCard('Cliente',[{n:'id_cliente',t:'pk'},{n:'nome'},{n:'nascimento'}])+
+    tableCard('Venda',[{n:'id_venda',t:'pk'},{n:'data'},{n:'id_cliente',t:'fk'}])+
+    tableCard('Produto',[{n:'id_produto',t:'pk'},{n:'descrição'},{n:'valor'}]);
+})();
+
+/* ---------- attribute filter ---------- */
+(function(){
+  const info={
+    all:'Cada tipo de atributo tem uma função. Escolha um tipo acima para destacá-lo.',
+    det:'<b>Determinante (chave):</b> identifica de forma única cada registro. Aparece como círculo preenchido. Exemplo: ID_Cliente. Não pode mudar e existe em toda entidade.',
+    mono:'<b>Monovalorado:</b> assume um único valor por registro. Exemplos: nome, CPF, data de nascimento.',
+    comp:'<b>Composto:</b> é formado por subatributos. Exemplo: Endereço = Logradouro + Número.',
+    multi:'<b>Multivalorado:</b> pode ter mais de um valor por registro (anel duplo no desenho). Exemplo: um cliente pode ter vários dependentes.'
+  };
+  const svg=$('#attrSvg'),box=$('#attrInfo'),chips=$('#attrChips');
+  function set(f){svg.dataset.f=f;$$('button',chips).forEach(b=>b.setAttribute('aria-selected',b.dataset.f===f));box.innerHTML=info[f]}
+  $$('button',chips).forEach(b=>b.addEventListener('click',()=>set(b.dataset.f)));
+  set('all');
+})();
+
+/* ---------- specialization ---------- */
+(function(){
+  const D={
+    'total-disj':{t:'Total disjuntiva',e:'Conta corrente',d:'<b>Toda</b> conta é de pessoa física ou jurídica (total), e <b>nunca das duas ao mesmo tempo</b> (disjuntiva).',items:[['Conta 101',['Pessoa física']],['Conta 102',['Pessoa jurídica']],['Conta 103',['Pessoa jurídica']],['Conta 104',['Pessoa física']]]},
+    'total-comp':{t:'Total compartilhada',e:'Pessoa na escola',d:'Toda pessoa é professor, coordenador ou diretor (total), mas pode acumular funções, como dirigir e continuar professor (compartilhada).',items:[['Yasmin Albuquerque',['Professor']],['Kayky Dorta',['Professor','Coordenador']],['Gislaine Rosa',['Professor','Diretor']]]},
+    'parcial-disj':{t:'Parcial disjuntiva',e:'Funcionário',d:'O funcionário pode ser motorista ou secretário, <b>nunca os dois</b> (disjuntiva), mas existem funcionários de outros cargos (parcial).',items:[['Yasmin Albuquerque',['Secretário']],['Kayky Dorta',['Motorista']],['Gislaine Rosa',[]]]},
+    'parcial-comp':{t:'Parcial compartilhada',e:'Pessoa na escola',d:'Pode ser professor e/ou coordenador ao mesmo tempo (compartilhada), mas há pessoas que não são nenhum dos dois (parcial).',items:[['Yasmin Albuquerque',['Professor']],['Kayky Dorta',['Professor','Coordenador']],['Gislaine Rosa',[]]]}
+  };
+  let g='total',h='disj';
+  const root=$('#spec');
+  function r(){
+    const x=D[g+'-'+h];
+    $$('[data-g]',root).forEach(b=>b.setAttribute('aria-pressed',b.dataset.g===g));
+    $$('[data-h]',root).forEach(b=>b.setAttribute('aria-pressed',b.dataset.h===h));
+    $('#specTitle').textContent=x.t+' — '+x.e;
+    $('#specDesc').innerHTML=x.d;
+    $('#specItems').innerHTML=x.items.map(i=>`<div class="item">${i[0]}<br>${i[1].length?i[1].map(t=>`<span class="tag">${t}</span>`).join(''):'<span class="tag none">nenhuma especialização</span>'}</div>`).join('');
+    const none=x.items.some(i=>!i[1].length),multi=x.items.some(i=>i[1].length>1);
+    $('#specVerdict').innerHTML=`<span>Alguém <b>sem</b> especialização? <b>${none?'Sim':'Não'}</b> → ${none?'parcial':'total'}</span><span>Alguém com <b>2 ou mais</b>? <b>${multi?'Sim':'Não'}</b> → ${multi?'compartilhada':'disjuntiva'}</span>`;
+  }
+  $$('[data-g]',root).forEach(b=>b.onclick=()=>{g=b.dataset.g;r()});
+  $$('[data-h]',root).forEach(b=>b.onclick=()=>{h=b.dataset.h;r()});
+  r();
+})();
+
+/* ---------- relationships ---------- */
+(function(){
+  const cfg={
+    '11':{L:['Yasmin Albuquerque','Kayky Dorta','Gislaine Rosa'],R:['Vendas','TI','RH'],E:[[0,0],[1,1],[2,2]],lt:'Funcionários (gerentes)',rt:'Departamentos',
+      read:['Um funcionário gerencia no mínimo 1 e no máximo 1 departamento: <b>(1,1)</b>.','Um departamento é gerenciado por no mínimo 1 e no máximo 1 funcionário: <b>(1,1)</b>.'],
+      how:'Não cria tabela nova. Basta uma <b>FK</b> em um dos lados:',tabs:[tableCard('Departamento',[{n:'id_depto',t:'pk'},{n:'nome'},{n:'id_gerente',t:'fk'}])]},
+    '1n':{L:['Vendas','TI'],R:['Yasmin Albuquerque','Kayky Dorta','Gislaine Rosa'],E:[[0,0],[0,1],[1,2]],lt:'Departamentos',rt:'Funcionários',
+      read:['Um funcionário pertence a no mínimo 1 e no máximo 1 departamento: <b>(1,1)</b>.','Um departamento tem no mínimo 1 funcionário e pode ter quantos precisar: <b>(1,N)</b>.'],
+      how:'Também não cria tabela nova. A <b>FK</b> fica no lado dos “muitos” (o funcionário guarda o seu departamento):',tabs:[tableCard('Funcionario',[{n:'id_func',t:'pk'},{n:'nome'},{n:'id_depto',t:'fk'}])]},
+    'nn':{L:['Yasmin Albuquerque','Kayky Dorta','Gislaine Rosa'],R:['Banco de Dados','Redes','Java'],E:[[0,0],[0,1],[1,0],[1,2],[2,1],[2,2]],lt:'Estudantes',rt:'Disciplinas',
+      read:['Um estudante cursa várias disciplinas: <b>(1,N)</b>.','Uma disciplina é cursada por vários estudantes: <b>(1,N)</b>.'],
+      how:'<b>Gera uma nova entidade</b> (entidade associativa), que pode ter atributos próprios do relacionamento, como a nota:',tabs:[tableCard('Estudante',[{n:'id_est',t:'pk'},{n:'nome'}]),tableCard('Disciplina',[{n:'id_disc',t:'pk'},{n:'nome'}]),tableCard('Matricula',[{n:'id_est',t:'pk fk'},{n:'id_disc',t:'pk fk'},{n:'nota'}])]}
+  };
+  const view=$('#relView'),root=$('#rels');
+  function draw(k){
+    const c=cfg[k],rowH=56,top=46,n=Math.max(c.L.length,c.R.length),H=top+n*rowH+6;
+    const yy=(arr,i)=>top+((n-arr.length)*rowH)/2+i*rowH+rowH/2-4;
+    let s=`<svg class="sv rel-svg" viewBox="0 0 560 ${H}" style="max-width:560px" role="img" aria-label="Instâncias ligadas: ${c.lt} e ${c.rt}">`;
+    s+=`<text class="sv-mu" x="105" y="24" text-anchor="middle" style="font-weight:700">${c.lt}</text><text class="sv-mu" x="455" y="24" text-anchor="middle" style="font-weight:700">${c.rt}</text>`;
+    c.E.forEach(e=>{s+=`<line class="ed" data-a="L${e[0]}" data-b="R${e[1]}" x1="185" y1="${yy(c.L,e[0])}" x2="375" y2="${yy(c.R,e[1])}"/>`});
+    c.L.forEach((t,i)=>{s+=`<g class="nd" tabindex="0" data-s="L${i}"><rect x="25" y="${yy(c.L,i)-19}" width="160" height="38" rx="8"/><text x="105" y="${yy(c.L,i)+5}" text-anchor="middle">${t}</text></g>`});
+    c.R.forEach((t,i)=>{s+=`<g class="nd" tabindex="0" data-s="R${i}"><rect x="375" y="${yy(c.R,i)-19}" width="160" height="38" rx="8"/><text x="455" y="${yy(c.R,i)+5}" text-anchor="middle">${t}</text></g>`});
+    s+='</svg>';
+    view.innerHTML=s+`<div class="read">${c.read.map(r=>`<div>${r}</div>`).join('')}</div><p>${c.how}</p><div class="tcs">${c.tabs.join('')}</div>`;
+    const svg=$('.rel-svg',view);
+    const on=id=>{svg.classList.add('hov');$$('.ed',svg).forEach(e=>{const m=e.dataset.a===id||e.dataset.b===id;e.classList.toggle('hi',m);e.classList.toggle('dim',!m)})};
+    const off=()=>{svg.classList.remove('hov');$$('.ed',svg).forEach(e=>e.classList.remove('hi','dim'))};
+    $$('.nd',svg).forEach(g=>{g.addEventListener('mouseenter',()=>on(g.dataset.s));g.addEventListener('mouseleave',off);g.addEventListener('focus',()=>on(g.dataset.s));g.addEventListener('blur',off);g.addEventListener('click',()=>on(g.dataset.s))});
+  }
+  $$('[data-r]',root).forEach(b=>b.onclick=()=>{$$('[data-r]',root).forEach(x=>x.setAttribute('aria-selected',x===b));draw(b.dataset.r)});
+  draw('11');
+})();
+
+/* ---------- phases ---------- */
+(function(){
+  const P=[
+    {k:'Descritivo',s:'levantamento',lvl:12,tech:'Não',who:'Você e o cliente conversam',out:'Um texto detalhado dos requisitos',
+     o:['Ouvir o cliente e entender o negócio dele','Separar o que realmente importa para a solução','Confirmar com o cliente se você entendeu certo','Só depois propor melhorias de eficiência'],
+     care:'O cliente não entende de banco de dados e você não entende do negócio dele. Confirme tudo.',house:'Conversar com o dono sobre como ele quer morar.'},
+    {k:'Conceitual',s:'DER',lvl:40,tech:'Não',who:'Você desenha, o cliente confere',out:'O diagrama de entidade e relacionamento (DER)',
+     o:['Identificar as entidades','Definir os atributos de cada uma','Definir os relacionamentos entre elas','Mostrar o DER ao cliente para validar'],
+     care:'Ainda não há tecnologia definida, por isso é um modelo sem restrições e fácil de entender.',house:'Desenhar a planta da casa e mostrar ao dono.'},
+    {k:'Lógico',s:'tabelas',lvl:72,tech:'Sim',who:'Equipe técnica',out:'Modelo de tabelas com tipos, PKs e FKs',
+     o:['Converter o DER em tabelas','Definir os tipos de dados de cada atributo','Definir chaves primárias (PK) e estrangeiras (FK)','Definir como as chaves se relacionam'],
+     care:'Aqui já é preciso conhecer a tecnologia com a qual o banco será feito.',house:'Projeto técnico: medidas, encanamento e fiação.'},
+    {k:'Físico',s:'próxima unidade',lvl:100,tech:'Sim',who:'Equipe técnica, com SQL',out:'O banco criado de verdade no SGBD',
+     o:['Implementar o modelo lógico com comandos SQL','Criar as tabelas no SGBD'],
+     care:'É o assunto da Unidade 2.',house:'A obra, construindo a casa.'}
+  ];
+  const row=$('#phRow'),body=$('#phBody'),m=$('#phMeter'),house=$('#phHouse');
+  P.forEach((p,i)=>{const b=document.createElement('button');b.type='button';b.className='ph';b.innerHTML=`${p.k}<small>${p.s}</small>`;b.onclick=()=>sel(i);row.append(b)});
+  function sel(i){const p=P[i];$$('.ph',row).forEach((b,j)=>b.setAttribute('aria-pressed',i===j));m.style.width=p.lvl+'%';
+    body.innerHTML=`<div><h5>O que acontece</h5><ul>${p.o.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      <div><h5>Quem participa</h5>${p.who}<h5 style="margin-top:.6rem">O que sai desta fase</h5>${p.out}<h5 style="margin-top:.6rem">Precisa conhecer a tecnologia?</h5>${p.tech}</div>
+      <div style="grid-column:1/-1"><h5>Cuidado</h5>${p.care}</div>`;
+    house.innerHTML=`<p><b>Pense numa casa:</b> ${p.house}</p>`}
+  sel(0);
+})();
+
+/* ---------- example views ---------- */
+(function(){
+  const root=$('#exViews'); initTabs(root);
+  const chips=$('#hlChips'),txt=$('#descText');
+  $$('button',chips).forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-selected')!=='true';b.setAttribute('aria-selected',on);txt.classList.toggle('show-'+b.dataset.hl,on)}));
+  $('#logic').innerHTML=
+    tableCard('Cliente',[{n:'id_cliente',t:'pk',k:'id_cliente'},{n:'nome'},{n:'cpf'},{n:'endereço'},{n:'telefone'}])+
+    tableCard('Venda',[{n:'id_venda',t:'pk',k:'id_venda'},{n:'data'},{n:'id_cliente',t:'fk',k:'id_cliente'}])+
+    tableCard('Produto',[{n:'id_produto',t:'pk',k:'id_produto'},{n:'descrição'},{n:'valor'}])+
+    tableCard('Item_Venda',[{n:'id_venda',t:'pk fk',k:'id_venda'},{n:'id_produto',t:'pk fk',k:'id_produto'},{n:'quantidade'}]);
+  linkKeys($('#logic')); linkKeys($('#dataEx'));
+})();
+
+/* ---------- quiz engine ---------- */
+function mountQuiz(sel,topic,qs){
+  const root=$(sel);
+  qs.forEach((q,i)=>{
+    const key=sel+'-'+i; declare(topic);
+    const card=document.createElement('div'); card.className='q';
+    card.innerHTML=`<p class="qt"><span class="qn">${i+1}</span><span>${q.q}</span></p><div class="opts"></div><div class="why" hidden></div>`;
+    const opts=$('.opts',card),why=$('.why',card);
+    let done=false;
+    const showWhy=ok=>{why.hidden=false;why.className='why'+(ok?' good':'');
+      why.innerHTML=(ok?'<b>✓ Correto.</b> ':'<b>✕ Ainda não.</b> ')+q.e+' <button type="button">Tentar de novo</button>';
+      $('button',why).onclick=reset};
+    const reset=()=>{done=false;why.hidden=true;unregister(key);$$('.opt',opts).forEach(b=>{b.disabled=false;b.className='opt';b.setAttribute('aria-pressed','false')})};
+    if(q.multi){
+      q.o.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='opt';b.setAttribute('aria-pressed','false');b.innerHTML=t;
+        b.onclick=()=>{if(!done)b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true')};opts.append(b)});
+      const v=document.createElement('button');v.type='button';v.className='btn red sm';v.textContent='Verificar';v.style.marginTop='.7rem';
+      v.onclick=()=>{if(done)return;done=true;const bs=$$('.opt',opts);let ok=true;
+        bs.forEach((b,j)=>{const sel=b.getAttribute('aria-pressed')==='true',should=q.a.includes(j);if(sel!==should)ok=false;
+          b.disabled=true;b.setAttribute('aria-pressed','false');if(should)b.classList.add('ok');else if(sel)b.classList.add('bad')});
+        register(topic,key,ok);showWhy(ok)};
+      card.insertBefore(v,why);
+    }else{
+      q.o.forEach((t,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.setAttribute('aria-pressed','false');b.innerHTML=t;
+        b.onclick=()=>{if(done)return;done=true;const ok=j===q.a;
+          $$('.opt',opts).forEach((x,k)=>{x.disabled=true;if(k===q.a)x.classList.add('ok');else if(x===b)x.classList.add('bad')});
+          register(topic,key,ok);showWhy(ok)};opts.append(b)});
+    }
+    root.append(card);
+  });
+}
+
+/* ---------- match exercise engine ---------- */
+function mountMatch(sel,topic,cfg){
+  const root=$(sel),key=sel; declare(topic);
+  root.innerHTML=`<div class="q"><p class="qt"><span class="qn">★</span><span>${cfg.title}</span></p><table class="mt"><tbody>${cfg.rows.map((r,i)=>
+    `<tr><td>${r.l}</td><td><select aria-label="${r.l.replace(/"/g,'')}"><option value="">Escolha…</option>${cfg.opts.map(o=>`<option>${o}</option>`).join('')}</select><span class="hint" hidden></span></td></tr>`).join('')}</tbody></table>
+    <div class="act"><button type="button" class="btn red sm" data-v>Verificar</button><button type="button" class="btn ghost sm" data-c>Limpar</button><span class="hint-text" data-m></span></div></div>`;
+  const sels=$$('select',root),msg=$('[data-m]',root);
+  $('[data-v]',root).onclick=()=>{
+    if(sels.some(s=>!s.value)){msg.textContent='Responda todas as linhas antes de verificar.';return}
+    let ok=0;
+    sels.forEach((s,i)=>{const r=cfg.rows[i],h=s.parentNode.querySelector('.hint');const good=s.value===r.a;
+      s.classList.toggle('ok',good);s.classList.toggle('bad',!good);if(good)ok++;h.hidden=good;h.textContent=good?'':'Resposta certa: '+r.a+'. '+(r.w||'')});
+    const all=ok===sels.length;register(topic,key,all);
+    msg.innerHTML=all?'<b>✓ Tudo certo!</b>':`<b>${ok} de ${sels.length}</b> certas. Veja as dicas e tente de novo.`;
+  };
+  $('[data-c]',root).onclick=()=>{sels.forEach(s=>{s.value='';s.className='';s.parentNode.querySelector('.hint').hidden=true});msg.textContent='';unregister(key)};
+}
+
+/* ---------- exercises: topic 1 ---------- */
+mountQuiz('#q1','t1',[
+  {q:'Em banco de dados, o que é um <b>campo</b>?',o:['Um conjunto de registros do mesmo assunto','Um dado que possui significado, como nome, idade ou salário','O software que gerencia o banco','A tabela que converte caracteres em binário'],a:1,e:'Campo é um dado com significado. Vários campos formam um registro; vários registros formam um arquivo (entidade).'},
+  {q:'A ficha de papel de um cliente guardada no armário de aço corresponde, no computador, a um…',o:['Campo','Banco de dados','Registro','SGBD'],a:2,e:'Cada ficha é um registro; o armário é o arquivo.'},
+  {q:'A Yasmin mudou de telefone, mas só um dos três arquivos que guardam esse dado foi atualizado. Qual problema dos arquivos soltos é esse?',o:['Atomicidade','Segurança','Isolamento dos dados','Redundância e inconsistência'],a:3,e:'A mesma informação repetida em vários lugares pode ficar diferente em cada um: é redundância com inconsistência.'},
+  {q:'Numa transferência bancária, o débito saiu da conta A, mas uma falha impediu o crédito na conta B. Qual propriedade foi violada?',o:['Atomicidade','Integridade de segurança','Acesso concorrente','Hierarquia'],a:0,e:'Atomicidade: operações que formam uma só unidade (débito e crédito) devem acontecer juntas, ou nenhuma delas.'},
+  {q:'Qual modelo organiza os dados em tabelas (linhas e colunas) e é usado pela maioria dos SGBDs atuais?',o:['Hierárquico','Em rede','Relacional','Orientado a objetos'],a:2,e:'No relacional, colunas são campos e linhas são registros, ligados por campos em comum.'},
+  {q:'Qual destes é um exemplo de SGBD?',o:['ASCII','PostgreSQL','BR Modelo Web','Hollerith'],a:1,e:'PostgreSQL, assim como SQL Server, Oracle e MySQL, é um SGBD. O BR Modelo Web é uma ferramenta para desenhar diagramas.'}
+]);
+mountMatch('#m1','t1',{title:'Associe cada fato à década em que ele aconteceu:',opts:['Anos 60','Anos 70','Anos 80','Anos 90','Anos 2000'],rows:[
+  {l:'Peter Chen cria o modelo de Entidade e Relacionamento (1976)',a:'Anos 70',w:'Codd (1968) e Chen (1976) marcam a base do relacional.'},
+  {l:'A linguagem SQL é padronizada pela ANSI e se populariza',a:'Anos 80',w:'Foi quando o relacional virou febre.'},
+  {l:'Cliente-servidor vira regra e a Internet começa a se popularizar',a:'Anos 90',w:'Delphi e Visual Basic também são dessa época.'},
+  {l:'Bancos passam a guardar imagens e vídeos; NoSQL ganha força',a:'Anos 2000',w:'NoSQL significa “Not Only SQL”.'},
+  {l:'Bancos já fazem parte das empresas, mas exigem conhecer a estrutura física',a:'Anos 60',w:'Os registros eram ligados por ponteiros de baixo nível.'}
+]});
+
+/* ---------- exercises: topic 2 ---------- */
+mountQuiz('#q2','t2',[
+  {q:'Qual atributo identifica, de forma única, cada instância de uma entidade?',o:['Composto','Multivalorado','Monovalorado','Determinante (chave)'],a:3,e:'O determinante é a chave, representada por um círculo preenchido. Não pode ser alterado e existe em toda entidade.'},
+  {q:'O atributo <b>Endereço</b>, formado por logradouro e número, é um atributo…',o:['Composto','Multivalorado','Determinante','Generalizado'],a:0,e:'Composto = formado por subatributos.'},
+  {q:'Um cliente pode ter vários dependentes. Esse atributo é…',o:['Monovalorado','Multivalorado','Composto','Uma entidade associativa'],a:1,e:'Multivalorado = pode assumir mais de um valor por registro.'},
+  {q:'Em uma empresa, um funcionário pode ser motorista ou secretário, nunca os dois, e existem funcionários de outros cargos. Essa especialização é…',o:['Total disjuntiva','Total compartilhada','Parcial disjuntiva','Parcial compartilhada'],a:2,e:'Há “outros” funcionários, então é parcial. Não pode ser as duas funções ao mesmo tempo, então é disjuntiva.'},
+  {q:'Um estudante cursa várias disciplinas e cada disciplina é cursada por vários estudantes. Esse relacionamento…',o:['É um para um','É um para muitos e a FK fica no estudante','É muitos para muitos e gera uma nova entidade','Não precisa de cardinalidade'],a:2,e:'Muitos para muitos gera uma entidade associativa, que pode ter atributos próprios, como a nota.'},
+  {q:'Cada funcionário pertence a um departamento, e cada departamento tem vários funcionários. Onde fica a FK?',o:['Na tabela Departamento','Na tabela Funcionário','Nas duas tabelas','Numa terceira tabela'],a:1,e:'No um para muitos, a FK fica no lado dos “muitos”: o funcionário guarda o id do seu departamento.'}
+]);
+mountMatch('#m2a','t2',{title:'Classifique cada atributo:',opts:['Determinante (chave)','Monovalorado','Composto','Multivalorado'],rows:[
+  {l:'ID do cliente (identifica cada cliente)',a:'Determinante (chave)',w:'É o que identifica de forma única.'},
+  {l:'Nome do cliente',a:'Monovalorado',w:'Um único valor por registro.'},
+  {l:'Endereço (logradouro + número)',a:'Composto',w:'Tem subatributos.'},
+  {l:'Dependentes do cliente (pode haver vários)',a:'Multivalorado',w:'Mais de um valor por registro.'},
+  {l:'Salário do funcionário',a:'Monovalorado',w:'Um único valor por registro.'}
+]});
+mountMatch('#m2b','t2',{title:'Classifique a cardinalidade de cada relacionamento:',opts:['Um para um','Um para muitos','Muitos para muitos'],rows:[
+  {l:'País — Capital (cada país tem uma capital e vice-versa)',a:'Um para um'},
+  {l:'Cliente — Vendas (um cliente faz várias vendas; cada venda é de um só cliente)',a:'Um para muitos',w:'A FK fica na venda.'},
+  {l:'Estudante — Disciplina',a:'Muitos para muitos',w:'Gera uma entidade associativa.'},
+  {l:'Venda — Produto (uma venda tem vários produtos; um produto está em várias vendas)',a:'Muitos para muitos',w:'Por isso existe o Item da venda.'},
+  {l:'Funcionário gerente — Departamento (cada um gerencia exatamente um)',a:'Um para um'}
+]});
+
+/* ---------- exercises: topic 3 ---------- */
+mountQuiz('#q3','t3',[
+  {q:'Em qual fase da modelagem se faz o levantamento de requisitos, montando um texto detalhado a partir do que o cliente diz?',o:['Modelo descritivo','Modelo conceitual','Modelo lógico','Modelo físico'],a:0,e:'O modelo descritivo é o texto dos requisitos. Lembre-se de confirmar com o cliente se você entendeu certo.'},
+  {q:'Qual fase gera o DER, serve para mostrar ao cliente e ainda não depende da tecnologia usada?',o:['Descritivo','Conceitual','Lógico','Físico'],a:1,e:'O modelo conceitual é o diagrama de entidade e relacionamento, sem restrições tecnológicas.'},
+  {q:'Em qual fase se definem tipos de dados, chaves primárias e chaves estrangeiras?',o:['Descritivo','Conceitual','Lógico','Nenhuma delas'],a:2,e:'No modelo lógico o DER vira tabelas, e a tecnologia já é conhecida.'},
+  {q:'Na tabela <b>Venda</b>, o campo <span class="mono">id_cliente</span> é…',o:['Uma PK da tabela Cliente','Uma FK que aponta para a PK da tabela Cliente','Um atributo multivalorado','Uma entidade associativa'],a:1,e:'FK (chave estrangeira) é o campo que aponta para a PK de outra tabela, ligando Venda a Cliente.'}
+]);
+mountQuiz('#q3b','t3',[
+  {q:'Quais são as <b>entidades</b> do problema? (marque todas as corretas)',multi:true,o:['Leitor','Livro','Data de devolução','E-mail'],a:[0,1],e:'Leitor e Livro são “coisas” sobre as quais guardamos dados. Data de devolução e e-mail são atributos.'},
+  {q:'Qual é o tipo de relacionamento entre Leitor e Livro?',o:['Um para um','Um para muitos','Muitos para muitos'],a:2,e:'Um leitor pega vários livros e um livro é emprestado a vários leitores (em momentos diferentes).'},
+  {q:'Como isso fica no <b>modelo lógico</b>?',o:['Uma coluna id_livro dentro da tabela Leitor','Uma tabela Empréstimo com FK id_leitor, FK id_livro e as datas','Uma tabela só com tudo misturado','Nada muda: relacionamentos não viram tabela'],a:1,e:'Muitos para muitos gera uma nova tabela (entidade associativa) com as FKs das duas entidades e os atributos do empréstimo: data de retirada e data de devolução.'}
+]);
+
+/* ---------- glossary ---------- */
+(function(){
+  const G=[
+    ['Dado','Registro de um fato, guardado em representação binária.'],
+    ['ASCII','Tabela de caracteres original; liga cada caractere a um código binário.'],
+    ['Campo','Dado com significado (nome, idade, salário).'],
+    ['Registro','Conjunto de campos sobre uma pessoa ou coisa.'],
+    ['Arquivo / entidade','Conjunto de registros do mesmo assunto; vira tabela.'],
+    ['Banco de dados','Conjunto organizado de dados para recuperação rápida e objetiva.'],
+    ['SGBD','Software que gerencia o banco e controla o acesso (SQL Server, Oracle, MySQL, PostgreSQL).'],
+    ['Catálogo','Área do SGBD com a descrição da estrutura, dos tipos e das restrições.'],
+    ['Modelo relacional','Dados em tabelas ligadas por campos em comum; base da maioria dos SGBDs.'],
+    ['SQL','Linguagem padrão para conversar com bancos de dados relacionais.'],
+    ['NoSQL','“Not Only SQL”: bancos que não seguem só o modelo relacional.'],
+    ['DER / MER','Diagrama / modelo de entidade e relacionamento (Peter Chen, 1976).'],
+    ['Entidade','Representação abstrata de um objeto do mundo real. Retângulo.'],
+    ['Atributo','Valor que descreve uma entidade. Círculo.'],
+    ['Atributo determinante (chave)','Identifica de forma única cada registro.'],
+    ['Atributo composto','Formado por subatributos (endereço = logradouro + número).'],
+    ['Atributo multivalorado','Pode ter vários valores por registro (dependentes).'],
+    ['Generalização / especialização','Entidade genérica e seus subtipos. Pode ser total/parcial e disjuntiva/compartilhada.'],
+    ['Cardinalidade','Par (mínimo, máximo) de instâncias que se relacionam: 1:1, 1:N, N:N.'],
+    ['Entidade associativa','Nova entidade gerada por um relacionamento muitos para muitos.'],
+    ['Modelo descritivo','Texto de requisitos, a partir da conversa com o cliente.'],
+    ['Modelo conceitual','DER, sem tecnologia definida.'],
+    ['Modelo lógico','Tabelas com tipos de dados, PKs e FKs.'],
+    ['PK (chave primária)','Campo que identifica cada linha da tabela.'],
+    ['FK (chave estrangeira)','Campo que aponta para a PK de outra tabela.']
+  ];
+  const box=$('#gl'),inp=$('#glIn');
+  function r(){const q=inp.value.trim().toLowerCase();
+    box.innerHTML=G.filter(g=>!q||(g[0]+' '+g[1]).toLowerCase().includes(q)).map(g=>`<div><b>${g[0]}</b>${g[1]}</div>`).join('')||'<p class="small">Nenhum termo encontrado.</p>'}
+  inp.addEventListener('input',r); r();
+  $('#resetAll').onclick=()=>location.reload();
+  renderScore();
+})();
+
+/* ---------- pages (router) ---------- */
+(function(){
+  const order=['inicio','t1','t2','t3','fim'];
+  const names={inicio:'Início',t1:'1. Armazenagem de dados',t2:'2. Diagrama de entidade e relacionamento',t3:'3. Modelagem de banco de dados',fim:'Revisão da unidade'};
+  const pages=$$('.page'),links=$$('.bar nav a');
+  pages.forEach(p=>{
+    const i=order.indexOf(p.dataset.page),prev=order[i-1],next=order[i+1];
+    const n=document.createElement('nav');n.className='pager';n.setAttribute('aria-label','Navegação entre páginas');
+    const holder=p.classList.contains('wrap')?p:(p.querySelector('.wrap')||p);
+    n.innerHTML=(prev?`<a href="#${prev}"><small>← Anterior</small>${names[prev]}</a>`:'<span></span>')+(next?`<a class="nx" href="#${next}"><small>Próxima página →</small>${names[next]}</a>`:'');
+    holder.append(n);
+  });
+  function go(){
+    let id=location.hash.slice(1);if(!order.includes(id))id='inicio';
+    pages.forEach(p=>p.classList.toggle('on',p.dataset.page===id));
+    links.forEach(a=>a.classList.toggle('on',a.dataset.n===id));
+    const a=$('.bar nav a.on');if(a&&a.scrollIntoView)a.scrollIntoView({inline:'center',block:'nearest'});
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  addEventListener('hashchange',go);go();
+})();
+</script>
+</body>
+</html>
